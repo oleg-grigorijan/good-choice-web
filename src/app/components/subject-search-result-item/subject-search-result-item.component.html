@@ -1,0 +1,20 @@
+<div class="d-flex row">
+  <div class="col-2 p-2">
+    <img class="img-fluid"
+         src="https://9to5mac.com/wp-content/uploads/sites/6/2021/04/Screen-Shot-2021-04-20-at-1.06.13-PM.jpg?quality=82&strip=all&w=1600">
+  </div>
+  <div class="col-10">
+    <h5 class="mb-0">{{subject.name}}</h5>
+    <div class="fs-6">{{subject.brand.name}}</div>
+    <div *ngFor="let tag of subject.subjectTags" class="badge bg-dark text-white me-1">
+      {{tag.name}}
+    </div>
+    <div>
+      <ng-container *ngIf="subject.summary.averageMark">
+        <span class="material-icons fs-6">star</span>
+        <span class="me-2">{{subject.summary.averageMark}}</span>
+      </ng-container>
+      <span class="text-muted">{{subject.summary.reviewsCount}} reviews</span>
+    </div>
+  </div>
+</div>

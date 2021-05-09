@@ -1,0 +1,5 @@
+<div class="container mb-3">
+  <h1 class="m-5 text-center"><span class="text-primary">Good</span>Choice</h1>
+  <app-search-bar (queryChange)="search($event)"></app-search-bar>
+  <app-search-result [brands]="brands" [subjects]="subjects" [subjectTags]="subjectTags"></app-search-result>
+</div>
