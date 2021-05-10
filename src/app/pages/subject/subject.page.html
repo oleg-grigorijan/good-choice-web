@@ -1,1 +1,37 @@
-<p>subject works!</p>
+<div class="container mb-3">
+  <div class="row">
+    <div class="col-lg-4 col-md-6 col-12">
+      <ng-container *ngIf="subject">
+        <h3>{{subject.name}}</h3>
+        <div class="list-group mb-2">
+          <div class="list-group-item">
+            <div *ngIf="subject.summary.averageMark">
+              <span class="me-1">
+                <span *ngFor="let i of [].constructor(subject.summary.averageMark)" class="material-icons fs-6">star</span>
+              </span>
+              <span class="me-2">{{subject.summary.averageMark}}</span>
+              <span class="text-muted">{{subject.summary.reviewsCount}} reviews</span>
+            </div>
+            <div *ngFor="let tag of subject.subjectTags" class="badge bg-dark text-white me-1">
+              {{tag.name}}
+            </div>
+          </div>
+          <div class="list-group-item">
+            <span class="material-icons fs-6">store</span>
+            {{subject.brand.name}}
+          </div>
+          <div *ngIf="subject.description" class="list-group-item">
+            {{subject.description}}
+          </div>
+        </div>
+      </ng-container>
+    </div>
+    <div class="col-lg-8 col-md-6 col-12">
+      <h3>Reviews</h3>
+      <app-review-card
+        *ngFor="let review of reviews"
+        [review]="review">
+      </app-review-card>
+    </div>
+  </div>
+</div>

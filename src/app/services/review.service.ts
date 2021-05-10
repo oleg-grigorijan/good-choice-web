@@ -1,29 +1,23 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {Subj, SubjectPreview} from "../models/subject.model";
+import {Review} from "../models/review.model";
 import {Page} from "../models/page.model";
 import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
-export class SubjectService {
+export class ReviewService {
 
   constructor(private readonly http: HttpClient) {
   }
 
-  queryPreviewsPage(query: string, offset: number, limit: number): Observable<Page<SubjectPreview>> {
-    return this.http.get<Page<SubjectPreview>>(`${environment.apiUrl}/subjects`, {
+  getPageBySubject(subjectId: string, offset: number, limit: number): Observable<Page<Review>> {
+    return this.http.get<Page<Review>>(`${environment.apiUrl}/subjects/${subjectId}/reviews`, {
       params: new HttpParams()
-        .append('query', query)
         .append('offset', offset.toString())
         .append('limit', limit.toString())
-    })
-  }
-
-
-  getById(subjectId: string): Observable<Subj> {
-    return this.http.get<Subj>(`${environment.apiUrl}/subjects/${subjectId}`);
+    });
   }
 }

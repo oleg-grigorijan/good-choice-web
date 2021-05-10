@@ -8,9 +8,9 @@ import {BrandPage} from "./pages/brand/brand.page";
 
 const routes: Routes = [
   {path: '', component: HomePage},
-  {path: 'brands/:id', component: BrandPage},
-  {path: 'subjects/tags/:id', component: SubjectTagPage},
-  {path: 'subjects/:id', component: SubjectPage},
+  {path: 'brands/:brandId', component: BrandPage},
+  {path: 'subjects/tags/:tagId', component: SubjectTagPage},
+  {path: 'subjects/:subjectId', component: SubjectPage},
   {path: '**', component: NotFoundPage},
 ];
 

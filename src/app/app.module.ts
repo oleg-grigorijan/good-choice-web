@@ -14,6 +14,7 @@ import { HomePage } from './pages/home/home.page';
 import { NotFoundPage } from './pages/not-found/not-found.page';
 import { SubjectTagPage } from './pages/subject-tag/subject-tag.page';
 import { BrandPage } from './pages/brand/brand.page';
+import { ReviewCardComponent } from './components/review-card/review-card.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { BrandPage } from './pages/brand/brand.page';
     NotFoundPage,
     SubjectTagPage,
     BrandPage,
+    ReviewCardComponent,
   ],
   imports: [
     BrowserModule,
