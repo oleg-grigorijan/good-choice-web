@@ -5,9 +5,11 @@ import {HomePage} from "./pages/home/home.page";
 import {NotFoundPage} from "./pages/not-found/not-found.page";
 import {SubjectTagPage} from "./pages/subject-tag/subject-tag.page";
 import {BrandPage} from "./pages/brand/brand.page";
+import {WelcomeComponent} from "./pages/welcome/welcome.component";
 
 const routes: Routes = [
   {path: '', component: HomePage},
+  {path: 'welcome', component: WelcomeComponent},
   {path: 'brands/:brandId', component: BrandPage},
   {path: 'subjects/tags/:tagId', component: SubjectTagPage},
   {path: 'subjects/:subjectId', component: SubjectPage},
