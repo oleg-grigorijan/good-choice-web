@@ -19,6 +19,7 @@ import {SignInFormComponent} from './components/sign-in-form/sign-in-form.compon
 import {WelcomeComponent} from './pages/welcome/welcome.component';
 import {ReactiveFormsModule} from "@angular/forms";
 import {AuthService} from "./services/auth.service";
+import { ToolbarComponent } from './components/toolbar/toolbar.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import {AuthService} from "./services/auth.service";
     ReviewCardComponent,
     SignInFormComponent,
     WelcomeComponent,
+    ToolbarComponent,
   ],
   imports: [
     BrowserModule,

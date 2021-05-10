@@ -22,7 +22,6 @@ export class AuthService implements HttpInterceptor {
   }
 
   get isAuthenticated(): boolean {
-    console.info(this.token);
     return this.token !== null;
   }
 
@@ -46,7 +45,6 @@ export class AuthService implements HttpInterceptor {
   }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    console.log("Hello");
     if (this.isAuthenticated) {
       const headerValue = 'Basic ' + this.token;
       request = request.clone({setHeaders: {Authorization: headerValue}});
