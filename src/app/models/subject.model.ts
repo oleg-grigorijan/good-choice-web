@@ -3,7 +3,7 @@ import {BrandPreview} from "./brand.model";
 import {SubjectTag} from "./subject-tag.model";
 
 export interface SubjectSummary {
-  marks: {value: number, count: number}[],
+  marks: { value: number, count: number }[],
   reviewsCount: number,
   averageMark: number,
 }
@@ -21,4 +21,13 @@ export interface Subj extends Reference {
   brand: BrandPreview,
   summary: SubjectSummary,
   subjectTags: SubjectTag[], // TODO: Rename to tags
+}
+
+export interface SubjectCreationRequest {
+  name: string,
+  description: string,
+  brand: Reference,
+  addedTags: Reference[],
+  images: Reference[],
+  primaryImage: Reference | null,
 }

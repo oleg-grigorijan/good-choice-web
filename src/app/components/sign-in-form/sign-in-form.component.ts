@@ -22,7 +22,7 @@ export class SignInFormComponent implements OnInit {
 
   constructor(private readonly formBuilder: FormBuilder, private readonly authService: AuthService) {
     this.form = this.formBuilder.group({
-      login: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
     });
   }
@@ -33,7 +33,7 @@ export class SignInFormComponent implements OnInit {
     });
   }
 
-  onSubmit(): void {
+  onSubmitClick(): void {
     this.wasSubmitted = true;
 
     if (this.form.invalid) {
@@ -41,7 +41,7 @@ export class SignInFormComponent implements OnInit {
     }
 
     this.isLoading = true;
-    this.authService.signIn(this.form.controls.login.value, this.form.controls.password.value).subscribe(() => {
+    this.authService.signIn(this.form.controls.email.value, this.form.controls.password.value).subscribe(() => {
       this.isLoading = false;
       this.signIn.emit();
     }, error => {

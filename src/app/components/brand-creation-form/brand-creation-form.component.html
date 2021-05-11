@@ -1,0 +1,29 @@
+<form [formGroup]="form" (ngSubmit)="onSubmitClick()">
+  <div class="form-group">
+    <label for="brand-creation-name">Name</label>
+    <input formControlName="name"
+           type="text"
+           class="form-control mb-2"
+           [class.is-invalid]="wasSubmitted && form.controls.name.errors"
+           id="brand-creation-name">
+    <div *ngIf="wasSubmitted && form.controls.name.errors" class="invalid-feedback">
+      <div *ngIf="form.controls.name.errors.required">Required</div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="brand-creation-description">Description</label>
+    <textarea formControlName="description"
+              class="form-control mb-2"
+              [class.is-invalid]="wasSubmitted && form.controls.description.errors"
+              id="brand-creation-description">
+    </textarea>
+    <div *ngIf="wasSubmitted && form.controls.description.errors" class="invalid-feedback">
+      <div *ngIf="form.controls.description.errors.required">Required</div>
+    </div>
+  </div>
+  <div *ngIf="formError" class="alert alert-danger mb-2">{{formError}}</div>
+  <button [disabled]="isLoading" class="btn btn-outline-primary">
+    <span *ngIf="isLoading" class="spinner-border spinner-border-sm me-1"></span>
+    Create
+  </button>
+</form>

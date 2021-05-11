@@ -38,4 +38,5 @@ export interface ReviewCreationRequest {
   body: {
     content: string,
   },
+  images: Reference[],
 }

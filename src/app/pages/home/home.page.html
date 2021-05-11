@@ -1,5 +1,69 @@
 <div class="container mb-3">
   <h1 class="m-5 text-center"><span class="text-primary">Good</span>Choice</h1>
-  <app-search-bar (queryChange)="search($event)"></app-search-bar>
-  <app-search-result [brands]="brands" [subjects]="subjects" [subjectTags]="subjectTags"></app-search-result>
+  <input #searchInput (input)="search(searchInput.value)" type="text" class="form-control mb-3" placeholder="Search">
+  <div class="list-group">
+    <a href="#"
+       *ngIf="query"
+       class="list-group-item list-group-item-primary list-group-item-action"
+       data-bs-toggle="modal"
+       data-bs-target="#brand-creation-modal">
+      Create brand <span class="fw-bold">{{query}}</span>
+    </a>
+    <app-brand-search-result-item
+      *ngFor="let brand of brands"
+      [brand]="brand"
+      [routerLink]="['/', 'brands', brand.id]"
+      class="list-group-item list-group-item-action">
+    </app-brand-search-result-item>
+    <a (click)="onCreateTagClick()" href="#" *ngIf="query"
+       class="list-group-item list-group-item-primary list-group-item-action">
+      Create tag <span class="fw-bold">{{query}}</span>
+    </a>
+    <app-subject-tag-search-result-item
+      *ngFor="let tag of subjectTags"
+      [tag]="tag"
+      [routerLink]="['/', 'subjects', 'tags', tag.id]"
+      class="list-group-item list-group-item-action">
+    </app-subject-tag-search-result-item>
+    <a href="#" *ngIf="query"
+       class="list-group-item list-group-item-primary list-group-item-action"
+       data-bs-toggle="modal"
+       data-bs-target="#subject-creation-modal">
+      Create subject <span class="fw-bold">{{query}}</span>
+    </a>
+    <app-subject-search-result-item
+      *ngFor="let subject of subjects"
+      [subject]="subject"
+      [routerLink]="['/', 'subjects', subject.id]"
+      class="list-group-item list-group-item-action">
+    </app-subject-search-result-item>
+  </div>
+</div>
+
+<div class="modal fade" id="subject-creation-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">New subject</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <app-subject-creation-form (creation)="onSubjectCreation($event)"></app-subject-creation-form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="brand-creation-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">New brand</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <app-brand-creation-form (creation)="onBrandCreation($event)"></app-brand-creation-form>
+      </div>
+    </div>
+  </div>
 </div>

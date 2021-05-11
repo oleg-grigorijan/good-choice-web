@@ -6,10 +6,8 @@ import {AppComponent} from './app.component';
 import {SubjectSearchResultItemComponent} from "./components/subject-search-result-item/subject-search-result-item.component";
 import {SubjectTagSearchResultItemComponent} from './components/subject-tag-search-result-item/subject-tag-search-result-item.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
-import {SearchResultComponent} from './components/search-result/search-result.component';
 import {BrandSearchResultItemComponent} from './components/brand-search-result-item/brand-search-result-item.component';
 import {SubjectPage} from './pages/subject/subject.page';
-import {SearchBarComponent} from './components/search-bar/search-bar.component';
 import {HomePage} from './pages/home/home.page';
 import {NotFoundPage} from './pages/not-found/not-found.page';
 import {SubjectTagPage} from './pages/subject-tag/subject-tag.page';
@@ -21,6 +19,8 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {AuthService} from "./services/auth.service";
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { ReviewCreationFormComponent } from './components/review-creation-form/review-creation-form.component';
+import { SubjectCreationFormComponent } from './components/subject-creation-form/subject-creation-form.component';
+import { BrandCreationFormComponent } from './components/brand-creation-form/brand-creation-form.component';
 
 @NgModule({
   declarations: [
@@ -28,9 +28,7 @@ import { ReviewCreationFormComponent } from './components/review-creation-form/r
     SubjectSearchResultItemComponent,
     SubjectTagSearchResultItemComponent,
     BrandSearchResultItemComponent,
-    SearchResultComponent,
     SubjectPage,
-    SearchBarComponent,
     HomePage,
     NotFoundPage,
     SubjectTagPage,
@@ -40,6 +38,8 @@ import { ReviewCreationFormComponent } from './components/review-creation-form/r
     WelcomeComponent,
     ToolbarComponent,
     ReviewCreationFormComponent,
+    SubjectCreationFormComponent,
+    BrandCreationFormComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,4 +1,4 @@
-<form [formGroup]="form" (ngSubmit)="onSubmit()">
+<form [formGroup]="form" (ngSubmit)="onSubmitClick()">
   <div class="form-group mb-2">
     <div class="form-group mb-2">
       <label class="d-block">Mark</label>
@@ -9,13 +9,12 @@
         </ng-container>
       </div>
     </div>
-    <label for="title">Title</label>
+    <label for="review-creation-title">Title</label>
     <input formControlName="title"
            type="text"
            class="form-control"
            [class.is-invalid]="wasSubmitted && form.controls.title.errors"
-           id="title"
-           autocomplete="username"/>
+           id="review-creation-title"/>
     <div *ngIf="wasSubmitted && form.controls.title.errors" class="invalid-feedback">
       <div *ngIf="form.controls.title.errors.required">Required</div>
     </div>
@@ -39,12 +38,11 @@
     </div>
   </div>
   <div class="form-group mb-2">
-    <label for="body">Summary</label>
+    <label for="review-creation-body">Summary</label>
     <textarea formControlName="body"
               class="form-control"
               [class.is-invalid]="wasSubmitted && form.controls.body.errors"
-              id="body"
-              autocomplete="current-password">
+              id="review-creation-body">
     </textarea>
     <div *ngIf="wasSubmitted && form.controls.body.errors" class="invalid-feedback">
       <div *ngIf="form.controls.body.errors.required">Required</div>

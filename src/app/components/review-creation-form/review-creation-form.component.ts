@@ -46,7 +46,7 @@ export class ReviewCreationFormComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onSubmit() {
+  onSubmitClick(): void {
     this.wasSubmitted = true;
     this.formError = null;
 
@@ -64,9 +64,11 @@ export class ReviewCreationFormComponent implements OnInit {
       },
       advantages: this.advantages.controls.map(it => it.value as string).filter(it => it),
       disadvantages: this.disadvantages.controls.map(it => it.value as string).filter(it => it),
+      images: [],
     }).subscribe(ref => {
       this.creation.emit(ref);
       this.form.reset();
+      this.wasSubmitted = false;
       this.isLoading = false;
     }, error => {
       this.formError = 'common.error.unexpected';

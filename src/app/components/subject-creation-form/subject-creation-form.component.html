@@ -1,0 +1,67 @@
+<form [formGroup]="form" (ngSubmit)="onSubmitClick()">
+  <div class="form-group">
+    <label for="name">Name</label>
+    <input formControlName="name"
+           type="text"
+           class="form-control mb-2"
+           [class.is-invalid]="wasSubmitted && form.controls.name.errors"
+           id="name">
+    <div *ngIf="wasSubmitted && form.controls.name.errors" class="invalid-feedback">
+      <div *ngIf="form.controls.name.errors.required">Required</div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label>Brand</label>
+    <input *ngIf="brand" type="text" class="form-control mb-2" [value]="brand.name" disabled>
+    <ng-container *ngIf="!brand">
+      <input #brandSearchInput
+             type="text"
+             (input)="onBrandQueryChange(brandSearchInput.value)"
+             class="form-control mb-2"
+             placeholder="Search">
+      <div *ngIf="brandsSearchResult.length" class="list-group mb-2">
+        <div
+          *ngFor="let brandSearchResult of brandsSearchResult"
+          (click)="selectBrand(brandSearchResult)"
+          class="list-group-item list-group-item-action">
+          {{brandSearchResult.name}}
+        </div>
+      </div>
+    </ng-container>
+  </div>
+  <div class="form-group">
+    <label>Tags</label>
+    <input *ngFor="let tag of tags" type="text" class="form-control mb-2" [value]="tag.name" disabled>
+    <input #tagSearchInput
+           type="text"
+           (input)="onTagQueryChange(tagSearchInput.value)"
+           class="form-control mb-2"
+           placeholder="Search">
+    <div *ngIf="tagsSearchResult.length" class="list-group mb-2">
+      <div
+        *ngFor="let tagSearchResult of tagsSearchResult"
+        (click)="selectTag(tagSearchResult)"
+        class="list-group-item"
+        [class.list-group-item-action]="!isTagSelected(tagSearchResult)"
+        [class.text-success]="isTagSelected(tagSearchResult)">
+        {{tagSearchResult.name}}
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="description">Description</label>
+    <textarea formControlName="description"
+              class="form-control mb-2"
+              [class.is-invalid]="wasSubmitted && form.controls.description.errors"
+              id="description">
+    </textarea>
+    <div *ngIf="wasSubmitted && form.controls.description.errors" class="invalid-feedback">
+      <div *ngIf="form.controls.description.errors.required">Required</div>
+    </div>
+  </div>
+  <div *ngIf="formError" class="alert alert-danger mb-2">{{formError}}</div>
+  <button [disabled]="isLoading" class="btn btn-outline-primary">
+    <span *ngIf="isLoading" class="spinner-border spinner-border-sm me-1"></span>
+    Create
+  </button>
+</form>
