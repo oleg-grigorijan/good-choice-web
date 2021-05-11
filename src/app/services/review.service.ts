@@ -14,11 +14,16 @@ export class ReviewService {
   constructor(private readonly http: HttpClient) {
   }
 
+  getOwnBySubject(subjectId: string): Observable<Review> {
+    return this.http.get<Review>(`${environment.apiUrl}/subjects/${subjectId}/reviews/own`);
+  }
+
   getPageBySubject(subjectId: string, offset: number, limit: number): Observable<Page<Review>> {
     return this.http.get<Page<Review>>(`${environment.apiUrl}/subjects/${subjectId}/reviews`, {
       params: new HttpParams()
         .append('offset', offset.toString())
         .append('limit', limit.toString())
+        .append('filterNotOwn', 'true')
     });
   }
 

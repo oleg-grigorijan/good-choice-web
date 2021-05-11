@@ -1,10 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {Review, ReviewVoteType} from "../../models/review.model";
 import {ReviewService} from "../../services/review.service";
-import {ActivatedRoute, Router} from "@angular/router";
+import {ActivatedRoute} from "@angular/router";
 import {Subj} from "../../models/subject.model";
 import {SubjectService} from "../../services/subject.service";
-import {Reference} from "../../models/reference.model";
+import {HttpErrorResponse} from "@angular/common/http";
+import {throwError} from "rxjs";
 
 @Component({
   selector: 'app-subject',
@@ -14,7 +15,8 @@ import {Reference} from "../../models/reference.model";
 export class SubjectPage implements OnInit {
 
   subjectId!: string;
-  subject?: Subj;
+  subject: Subj | null = null;
+  ownReview: Review | null = null;
   reviews: Review[] = [];
 
   constructor(
@@ -29,13 +31,22 @@ export class SubjectPage implements OnInit {
     this.subjectService.getById(this.subjectId).subscribe(subject => {
       this.subject = subject;
     })
+    this.loadOwnReview();
     this.reviewService.getPageBySubject(this.subjectId, 0, 20).subscribe(page => {
       this.reviews = page.items;
     });
   }
 
-  onReviewCreation(reference: Reference): void {
-    // TODO: Update page
+  loadOwnReview(): void {
+    this.reviewService.getOwnBySubject(this.subjectId).subscribe(review => {
+      this.ownReview = review;
+    }, error => {
+      if (error instanceof HttpErrorResponse && error.status === 401) {
+        this.ownReview = null;
+      } else {
+        throwError(error);
+      }
+    });
   }
 
   onVoteClick(review: Review, type: ReviewVoteType) {
@@ -43,7 +54,7 @@ export class SubjectPage implements OnInit {
       ? this.reviewService.removeVote(review.id)
       : this.reviewService.vote(review.id, type);
     voting$.subscribe(votes => {
-      this.reviews.find(it => it.id === review.id)!.votes = votes;
+      review.votes = votes;
     })
   }
 }

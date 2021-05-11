@@ -3,7 +3,7 @@
     <div class="col-lg-4 col-md-6 col-12">
       <h3>{{subject?.name}}</h3>
       <div class="list-group mb-2">
-        <div class="list-group-item list-group-item-primary list-group-item-action"
+        <div *ngIf="!ownReview" class="list-group-item list-group-item-primary list-group-item-action"
              data-bs-toggle="modal"
              data-bs-target="#review-creation-modal">
           Leave a review
@@ -32,6 +32,10 @@
       </div>
     </div>
     <div class="col-lg-8 col-md-6 col-12">
+      <ng-container *ngIf="ownReview">
+        <h3>My Review</h3>
+        <app-review-card [review]="ownReview" (voteClick)="onVoteClick(ownReview, $event)"></app-review-card>
+      </ng-container>
       <h3>Reviews</h3>
       <app-review-card
         *ngFor="let review of reviews"
@@ -50,7 +54,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <app-review-creation-form [subjectId]="subjectId" (creation)="onReviewCreation($event)"></app-review-creation-form>
+        <app-review-creation-form [subjectId]="subjectId" (creation)="loadOwnReview()"></app-review-creation-form>
       </div>
     </div>
   </div>
