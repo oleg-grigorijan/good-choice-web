@@ -19,14 +19,14 @@ export interface ReviewBody {
   createdTimestamp: Date,
 }
 
-export enum ReviewVoteType { UP, DOWN}
+export enum ReviewVoteType { UP = "UP", DOWN = "DOWN"}
 
 export interface ReviewVotes {
   upvotesCount: number,
   downvotesCount: number,
   own: {
     type: ReviewVoteType,
-  }
+  } | null
 }
 
 export interface ReviewCreationRequest {

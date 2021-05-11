@@ -1,31 +1,39 @@
-<div class="list-group">
-  <div class="list-group-item">
+<div class="card mb-3">
+  <div class="card-header">
     {{review.author.firstName}} {{review.author.lastName}}
   </div>
-  <div class="list-group-item">
-    <span *ngFor="let i of [].constructor(review.mark)" class="material-icons fs-6">star</span>
+  <div class="card-body">
+    <div>
+      <span *ngFor="let i of [].constructor(review.mark)" class="material-icons fs-6">star</span>
+    </div>
     <h5>{{review.title}}</h5>
     <div class="row row-cols-2 gx-2">
-      <ul *ngIf="review.advantages.length" class="list-unstyled text-success">
+      <ul *ngIf="review.advantages.length" class="list-unstyled text-success mb-2">
         <li *ngFor="let point of review.advantages">{{point}}</li>
       </ul>
-      <ul *ngIf="review.disadvantages.length" class="list-unstyled text-danger">
+      <ul *ngIf="review.disadvantages.length" class="list-unstyled text-danger mb-2">
         <li *ngFor="let point of review.disadvantages">{{point}}</li>
       </ul>
     </div>
-  </div>
-  <div *ngFor="let body of review.bodies" class="list-group-item">
-    <p class="mb-0 card-text">{{body.content}}</p>
-    <p class="mb-0 text-muted">{{body.createdTimestamp | date}}</p>
-  </div>
-  <div class="list-group-item py-3">
-    <button (click)="onUpvoteClick()" class="btn btn-outline-success me-2 py-1">
-      <span class="material-icons fs-6">keyboard_arrow_up</span>
-      {{review.votes.upvotesCount}}
-    </button>
-    <button (click)="onDownvoteClick()" class="btn btn-outline-danger py-1">
-      <span class="material-icons fs-6">keyboard_arrow_down</span>
-      {{review.votes.downvotesCount}}
-    </button>
+    <div *ngFor="let body of review.bodies" class="mb-2">
+      <p class="mb-0 card-text">{{body.content}}</p>
+      <p class="mb-0 text-muted">{{body.createdTimestamp | date}}</p>
+    </div>
+    <div class="btn-group btn-group-sm">
+      <button (click)="onUpvoteClick()"
+              class="btn"
+              [class.btn-outline-secondary]="review.votes.own?.type !== 'UP'"
+              [class.btn-success]="review.votes.own?.type === 'UP'">
+        <span class="material-icons fs-6">keyboard_arrow_up</span>
+        {{review.votes.upvotesCount}}
+      </button>
+      <button (click)="onDownvoteClick()"
+              class="btn"
+              [class.btn-outline-secondary]="review.votes.own?.type !== 'DOWN'"
+              [class.btn-danger]="review.votes.own?.type === 'DOWN'">
+        <span class="material-icons fs-6">keyboard_arrow_down</span>
+        {{review.votes.downvotesCount}}
+      </button>
+    </div>
   </div>
 </div>

@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {Review, ReviewCreationRequest} from "../models/review.model";
+import {Review, ReviewCreationRequest, ReviewVotes, ReviewVoteType} from "../models/review.model";
 import {Page} from "../models/page.model";
 import {environment} from "../../environments/environment";
 import {Reference} from "../models/reference.model";
@@ -24,5 +24,13 @@ export class ReviewService {
 
   create(request: ReviewCreationRequest): Observable<Reference> { // TODO: Return Review
     return this.http.post<Reference>(`${environment.apiUrl}/reviews`, request);
+  }
+
+  vote(reviewId: string, type: ReviewVoteType): Observable<ReviewVotes> {
+    return this.http.put<ReviewVotes>(`${environment.apiUrl}/reviews/${reviewId}/votes/own`, {type})
+  }
+
+  removeVote(reviewId: string): Observable<ReviewVotes> {
+    return this.http.delete<ReviewVotes>(`${environment.apiUrl}/reviews/${reviewId}/votes/own`);
   }
 }

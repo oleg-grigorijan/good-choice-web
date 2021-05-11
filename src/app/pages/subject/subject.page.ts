@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Review} from "../../models/review.model";
+import {Review, ReviewVoteType} from "../../models/review.model";
 import {ReviewService} from "../../services/review.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Subj} from "../../models/subject.model";
@@ -36,5 +36,14 @@ export class SubjectPage implements OnInit {
 
   onReviewCreation(reference: Reference): void {
     // TODO: Update page
+  }
+
+  onVoteClick(review: Review, type: ReviewVoteType) {
+    let voting$ = review.votes.own?.type === type
+      ? this.reviewService.removeVote(review.id)
+      : this.reviewService.vote(review.id, type);
+    voting$.subscribe(votes => {
+      this.reviews.find(it => it.id === review.id)!.votes = votes;
+    })
   }
 }
