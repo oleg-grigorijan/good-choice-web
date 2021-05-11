@@ -3,7 +3,7 @@ import {Observable} from "rxjs";
 import {Page} from "../models/page.model";
 import {environment} from "../../environments/environment";
 import {HttpClient, HttpParams} from "@angular/common/http";
-import {BrandPreview} from "../models/brand.model";
+import {Brand, BrandPreview} from "../models/brand.model";
 
 @Injectable({
   providedIn: 'root'
@@ -20,5 +20,9 @@ export class BrandService {
         .append('offset', offset.toString())
         .append('limit', limit.toString())
     })
+  }
+
+  getById(brandId: string): Observable<Brand> {
+    return this.http.get<Brand>(`${environment.apiUrl}/brands/${brandId}`);
   }
 }
