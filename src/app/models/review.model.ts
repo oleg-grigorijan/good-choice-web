@@ -28,3 +28,14 @@ export interface ReviewVotes {
     type: ReviewVoteType,
   }
 }
+
+export interface ReviewCreationRequest {
+  title: string,
+  subject: Reference,
+  advantages: string[],
+  disadvantages: string[],
+  mark: number,
+  body: {
+    content: string,
+  },
+}

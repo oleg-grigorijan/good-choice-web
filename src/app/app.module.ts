@@ -20,6 +20,7 @@ import {WelcomeComponent} from './pages/welcome/welcome.component';
 import {ReactiveFormsModule} from "@angular/forms";
 import {AuthService} from "./services/auth.service";
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
+import { ReviewCreationFormComponent } from './components/review-creation-form/review-creation-form.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { ToolbarComponent } from './components/toolbar/toolbar.component';
     SignInFormComponent,
     WelcomeComponent,
     ToolbarComponent,
+    ReviewCreationFormComponent,
   ],
   imports: [
     BrowserModule,

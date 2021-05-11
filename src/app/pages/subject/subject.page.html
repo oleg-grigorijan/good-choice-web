@@ -1,9 +1,14 @@
 <div class="container mb-3">
   <div class="row">
     <div class="col-lg-4 col-md-6 col-12">
-      <ng-container *ngIf="subject">
-        <h3>{{subject.name}}</h3>
-        <div class="list-group mb-2">
+      <h3>{{subject?.name}}</h3>
+      <div class="list-group mb-2">
+        <div class="list-group-item list-group-item-action border-primary text-primary"
+             data-bs-toggle="modal"
+             data-bs-target="#review-creation-modal">
+          Leave a review
+        </div>
+        <ng-container *ngIf="subject">
           <div class="list-group-item">
             <div *ngIf="subject.summary.averageMark">
               <span class="me-1">
@@ -16,15 +21,15 @@
               {{tag.name}}
             </div>
           </div>
-          <div class="list-group-item">
+          <div [routerLink]="['/', 'brands', subject.brand.id]" class="list-group-item list-group-item-action">
             <span class="material-icons fs-6">store</span>
             {{subject.brand.name}}
           </div>
           <div *ngIf="subject.description" class="list-group-item">
             {{subject.description}}
           </div>
-        </div>
-      </ng-container>
+        </ng-container>
+      </div>
     </div>
     <div class="col-lg-8 col-md-6 col-12">
       <h3>Reviews</h3>
@@ -32,6 +37,20 @@
         *ngFor="let review of reviews"
         [review]="review">
       </app-review-card>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="review-creation-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Leave a review</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <app-review-creation-form [subjectId]="subjectId" (creation)="onReviewCreation($event)"></app-review-creation-form>
+      </div>
     </div>
   </div>
 </div>

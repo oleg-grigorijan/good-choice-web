@@ -1,9 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {Review} from "../../models/review.model";
 import {ReviewService} from "../../services/review.service";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {Subj} from "../../models/subject.model";
 import {SubjectService} from "../../services/subject.service";
+import {Reference} from "../../models/reference.model";
 
 @Component({
   selector: 'app-subject',
@@ -31,5 +32,9 @@ export class SubjectPage implements OnInit {
     this.reviewService.getPageBySubject(this.subjectId, 0, 20).subscribe(page => {
       this.reviews = page.items;
     });
+  }
+
+  onReviewCreation(reference: Reference): void {
+    // TODO: Update page
   }
 }

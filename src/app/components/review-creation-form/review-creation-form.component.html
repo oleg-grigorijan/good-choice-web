@@ -1,0 +1,58 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="form-group mb-2">
+    <div class="form-group mb-2">
+      <label class="d-block">Mark</label>
+      <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+        <ng-container *ngFor="let mark of [1, 2, 3, 4, 5]">
+          <input type="radio" class="btn-check" formControlName="mark" id="mark-{{mark}}" value="{{mark}}" autocomplete="off">
+          <label class="btn btn-outline-dark" for="mark-{{mark}}">{{mark}}</label>
+        </ng-container>
+      </div>
+    </div>
+    <label for="title">Title</label>
+    <input formControlName="title"
+           type="text"
+           class="form-control"
+           [class.is-invalid]="wasSubmitted && form.controls.title.errors"
+           id="title"
+           autocomplete="username"/>
+    <div *ngIf="wasSubmitted && form.controls.title.errors" class="invalid-feedback">
+      <div *ngIf="form.controls.title.errors.required">Required</div>
+    </div>
+  </div>
+  <div class="form-group row">
+    <div class="col">
+      <label>Advantages</label>
+      <div *ngFor="let advantage of advantages.controls; let last = last;" class="mb-2">
+        <input [formControl]="asFormControl(advantage)" type="text" class="form-control"
+               (focus)="last && addAdvantage()"
+               [placeholder]="last ? 'Add advantage' : ''">
+      </div>
+    </div>
+    <div class="col">
+      <label>Disadvantages</label>
+      <div *ngFor="let disadvantage of disadvantages.controls; let last = last;" class="mb-2">
+        <input [formControl]="asFormControl(disadvantage)" type="text" class="form-control"
+               (focus)="last && addDisadvantage()"
+               [placeholder]="last ? 'Add disadvantage' : ''">
+      </div>
+    </div>
+  </div>
+  <div class="form-group mb-2">
+    <label for="body">Summary</label>
+    <textarea formControlName="body"
+              class="form-control"
+              [class.is-invalid]="wasSubmitted && form.controls.body.errors"
+              id="body"
+              autocomplete="current-password">
+    </textarea>
+    <div *ngIf="wasSubmitted && form.controls.body.errors" class="invalid-feedback">
+      <div *ngIf="form.controls.body.errors.required">Required</div>
+    </div>
+  </div>
+  <div *ngIf="formError" class="alert alert-danger mb-2">{{formError}}</div>
+  <button [disabled]="isLoading" class="btn btn-outline-primary">
+    <span *ngIf="isLoading" class="spinner-border spinner-border-sm me-1"></span>
+    Send
+  </button>
+</form>
