@@ -17,11 +17,8 @@
         </li>
       </ng-container>
       <ng-container *ngIf="!authService.auth">
-        <li class="nav-item">
-          <a routerLink="/welcome" class="nav-link" type="button">Registration</a>
-        </li>
         <li *ngIf="!authService.auth" class="nav-item">
-          <a routerLink="/welcome" class="nav-link" type="button">Sing In</a>
+          <a routerLink="/welcome" class="nav-link" type="button">Sing Up or Sing In</a>
         </li>
       </ng-container>
     </ul>

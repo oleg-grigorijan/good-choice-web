@@ -1,28 +1,30 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {AuthService} from "../../services/auth.service";
 import {HttpErrorResponse} from "@angular/common/http";
 import {throwError} from "rxjs";
+import {ReviewerService} from "../../services/reviewer.service";
 
 @Component({
-  selector: 'app-sign-in-form',
-  templateUrl: './sign-in-form.component.html',
+  selector: 'app-sign-up-form',
+  templateUrl: './sign-up-form.component.html',
   styles: []
 })
-export class SignInFormComponent implements OnInit {
+export class SignUpFormComponent implements OnInit {
 
   @Output()
-  signIn: EventEmitter<void> = new EventEmitter<void>();
+  signUp: EventEmitter<void> = new EventEmitter<void>();
 
   form: FormGroup;
   isLoading = false;
   wasSubmitted = false;
   isInvalidCredentialsError = false;
 
-  constructor(private readonly formBuilder: FormBuilder, private readonly authService: AuthService) {
+  constructor(private readonly formBuilder: FormBuilder, private readonly reviewerService: ReviewerService) {
     this.form = this.formBuilder.group({
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required],
+      password: ['', [Validators.required, Validators.minLength(8)]],
     });
   }
 
@@ -40,11 +42,13 @@ export class SignInFormComponent implements OnInit {
     }
 
     this.isLoading = true;
-    this.authService.signIn({
+    this.reviewerService.signUp({
+      firstName: this.form.controls.firstName.value,
+      lastName: this.form.controls.lastName.value,
       email: this.form.controls.email.value,
       password: this.form.controls.password.value,
-    }).subscribe(() => {
-      this.signIn.emit();
+    }).subscribe(auth => {
+      this.signUp.emit();
       this.form.reset()
       this.wasSubmitted = false
       this.isLoading = false;

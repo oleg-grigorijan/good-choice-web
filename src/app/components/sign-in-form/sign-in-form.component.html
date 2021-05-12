@@ -6,7 +6,7 @@
            class="form-control"
            [class.is-invalid]="wasSubmitted && form.controls.email.errors"
            id="sign-in-email"
-           autocomplete="username"/>
+           autocomplete="email"/>
     <div *ngIf="wasSubmitted && form.controls.email.errors" class="invalid-feedback">
       <div *ngIf="form.controls.email.errors.required">Required</div>
       <div *ngIf="form.controls.email.errors.email">Invalid email</div>
@@ -18,7 +18,8 @@
            type="password"
            class="form-control"
            [class.is-invalid]="wasSubmitted && form.controls.password.errors"
-           id="sign-in-password"/>
+           id="sign-in-password"
+           autocomplete="current-password"/>
     <div *ngIf="wasSubmitted && form.controls.password.errors" class="invalid-feedback">
       <div *ngIf="form.controls.password.errors.required">Required</div>
     </div>
@@ -26,6 +27,6 @@
   <div *ngIf="isInvalidCredentialsError" class="alert alert-danger mb-2">Invalid login or password</div>
   <button [disabled]="isLoading" class="btn btn-outline-primary">
     <span *ngIf="isLoading" class="spinner-border spinner-border-sm me-1"></span>
-    Sign in
+    Sign In
   </button>
 </form>

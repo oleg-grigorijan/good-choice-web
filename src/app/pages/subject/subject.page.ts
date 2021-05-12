@@ -31,7 +31,9 @@ export class SubjectPage implements OnInit {
     this.subjectService.getById(this.subjectId).subscribe(subject => {
       this.subject = subject;
     })
-    this.loadOwnReview();
+    if (this.reviewService.canCreate()) {
+      this.loadOwnReview();
+    }
     this.reviewService.getPageBySubject(this.subjectId, 0, 20).subscribe(page => {
       this.reviews = page.items;
     });

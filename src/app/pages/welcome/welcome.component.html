@@ -7,20 +7,35 @@
         to <span class="text-primary">Good</span>Choice
       </h2>
       <p class="text-secondary mb-3">
-        Application for qwert tyuio iop asdfghj hjkl dfghjcvbnm fghjktyui hjkl
+        Platform for your reviews
       </p>
     </div>
     <div class="col-md-1"></div>
     <div class="col-md-6">
-      <div class="list-group">
-        <div class="list-group-item">
-          Sign In
+      <div class="card mb-3">
+        <div class="card-header">
+          <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" id="sing-in-tab" data-bs-toggle="tab" data-bs-target="#sing-in" type="button" role="tab" aria-controls="sing-in"
+                      aria-selected="true">Sign In
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="sing-up-tab" data-bs-toggle="tab" data-bs-target="#sing-up" type="button" role="tab"
+                      aria-controls="sing-up" aria-selected="false">Sing Up
+              </button>
+            </li>
+          </ul>
         </div>
-        <div class="list-group-item">
-          <app-sign-in-form (signIn)="onSignIn()"></app-sign-in-form>
-        </div>
-        <div class="list-group-item">
-          First time here? Registration
+        <div class="card-body">
+          <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="sing-in" role="tabpanel" aria-labelledby="sing-in-tab">
+              <app-sign-in-form (signIn)="onSignInOrUp()"></app-sign-in-form>
+            </div>
+            <div class="tab-pane fade" id="sing-up" role="tabpanel" aria-labelledby="sing-up-tab">
+              <app-sign-up-form (signUp)="onSignInOrUp()"></app-sign-up-form>
+            </div>
+          </div>
         </div>
       </div>
     </div>

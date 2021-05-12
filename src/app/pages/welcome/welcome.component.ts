@@ -23,7 +23,7 @@ export class WelcomeComponent implements OnInit {
     }
   }
 
-  onSignIn() {
+  onSignInOrUp() {
     const returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
     this.router.navigate([returnUrl]);
   }

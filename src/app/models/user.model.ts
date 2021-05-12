@@ -12,3 +12,10 @@ export enum UserRole {
   ADMINISTRATOR = "ADMINISTRATOR",
   SYSTEM = "SYSTEM",
 }
+
+export interface ReviewerRegistrationRequest {
+  firstName: string,
+  lastName: string,
+  email: string,
+  password: string,
+}
