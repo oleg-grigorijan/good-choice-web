@@ -11,7 +11,7 @@
     <div>
       <ng-container *ngIf="subject.summary.averageMark">
         <span class="material-icons fs-6">star</span>
-        <span class="me-2">{{subject.summary.averageMark}}</span>
+        <span class="me-2">{{subject.summary.averageMark | number:'1.1-1'}}</span>
       </ng-container>
       <span class="text-muted">{{subject.summary.reviewsCount}} reviews</span>
     </div>

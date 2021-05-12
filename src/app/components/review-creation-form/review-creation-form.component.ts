@@ -2,6 +2,8 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {Reference} from "../../models/reference.model";
 import {ReviewService} from "../../services/review.service";
+import {switchMap} from "rxjs/operators";
+import {ImageService} from "../../services/image.service";
 
 @Component({
   selector: 'app-review-creation-form',
@@ -24,7 +26,8 @@ export class ReviewCreationFormComponent implements OnInit {
 
   constructor(
     private readonly reviewService: ReviewService,
-    private readonly formBuilder: FormBuilder
+    private readonly imageService: ImageService,
+    private readonly formBuilder: FormBuilder,
   ) {
     this.form = this.formBuilder.group({
       mark: ['5', Validators.required],
@@ -32,6 +35,7 @@ export class ReviewCreationFormComponent implements OnInit {
       advantages: this.formBuilder.array([this.formBuilder.control('')]),
       disadvantages: this.formBuilder.array([this.formBuilder.control('')]),
       body: ['', Validators.required],
+      imageUrls: this.formBuilder.array(['']),
     });
   }
 
@@ -41,6 +45,10 @@ export class ReviewCreationFormComponent implements OnInit {
 
   get disadvantages(): FormArray {
     return this.form.controls.disadvantages as FormArray;
+  }
+
+  get imageUrls(): FormArray {
+    return this.form.controls.imageUrls as FormArray;
   }
 
   ngOnInit(): void {
@@ -55,18 +63,18 @@ export class ReviewCreationFormComponent implements OnInit {
     }
 
     this.isLoading = true;
-    this.reviewService.
-    create({
-      subject: {id: this.subjectId},
-      mark: Number(this.form.controls.mark.value),
-      title: this.form.controls.title.value,
-      body: {
-        content: this.form.controls.body.value
-      },
-      advantages: this.advantages.controls.map(it => it.value as string).filter(it => it),
-      disadvantages: this.disadvantages.controls.map(it => it.value as string).filter(it => it),
-      images: [],
-    }).subscribe(ref => {
+    this.imageService.uploadAll(this.imageUrls.controls.filter(it => it.value).map(it => ({location: it.value})))
+      .pipe(switchMap(images => this.reviewService.create({
+        subject: {id: this.subjectId},
+        mark: Number(this.form.controls.mark.value),
+        title: this.form.controls.title.value,
+        body: {
+          content: this.form.controls.body.value
+        },
+        advantages: this.advantages.controls.map(it => it.value as string).filter(it => it),
+        disadvantages: this.disadvantages.controls.map(it => it.value as string).filter(it => it),
+        images: images,
+      }))).subscribe(ref => {
       this.creation.emit(ref);
       this.form.reset();
       this.wasSubmitted = false;
@@ -83,6 +91,10 @@ export class ReviewCreationFormComponent implements OnInit {
 
   addDisadvantage() {
     this.disadvantages.push(this.formBuilder.control(''));
+  }
+
+  addImage(): void {
+    this.imageUrls.push(this.formBuilder.control(''));
   }
 
   asFormControl(it: AbstractControl): FormControl {

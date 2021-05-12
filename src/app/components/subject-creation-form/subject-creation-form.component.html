@@ -48,6 +48,12 @@
       </div>
     </div>
   </div>
+  <label>Images</label>
+  <div *ngFor="let imageUrl of imageUrls.controls; let last = last;" class="mb-2">
+    <input [formControl]="asFormControl(imageUrl)" type="text" class="form-control"
+           (focus)="last && addImage()"
+           [placeholder]="last ? 'Add image' : 'URL'">
+  </div>
   <div class="form-group">
     <label for="description">Description</label>
     <textarea formControlName="description"

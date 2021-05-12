@@ -59,4 +59,8 @@ export class SubjectPage implements OnInit {
       review.votes = votes;
     })
   }
+
+  round(i: number): number {
+    return Math.round(i)
+  }
 }

@@ -33,9 +33,9 @@
           <div class="list-group-item">
             <div *ngIf="subject.summary.averageMark">
               <span class="me-1">
-                <span *ngFor="let i of [].constructor(subject.summary.averageMark)" class="material-icons fs-6">star</span>
+                <span *ngFor="let i of [].constructor(round(subject.summary.averageMark))" class="material-icons fs-6">star</span>
               </span>
-              <span class="me-2">{{subject.summary.averageMark}}</span>
+              <span class="me-2">{{subject.summary.averageMark | number:'1.1-1'}}</span>
               <span class="text-muted">{{subject.summary.reviewsCount}} reviews</span>
             </div>
             <div *ngFor="let tag of subject.subjectTags" class="badge bg-dark text-white me-1">
