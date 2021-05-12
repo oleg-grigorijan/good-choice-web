@@ -1,5 +1,6 @@
 import {Reference} from "./reference.model";
 import {UserPreview} from "./user.model";
+import {ImageDescriptor} from "./image-descriptor.model";
 
 export interface Review {
   id: string,
@@ -11,6 +12,7 @@ export interface Review {
   disadvantages: string[],
   bodies: ReviewBody[],
   votes: ReviewVotes,
+  images: ImageDescriptor[],
 }
 
 export interface ReviewBody {

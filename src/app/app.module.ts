@@ -21,6 +21,7 @@ import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { ReviewCreationFormComponent } from './components/review-creation-form/review-creation-form.component';
 import { SubjectCreationFormComponent } from './components/subject-creation-form/subject-creation-form.component';
 import { BrandCreationFormComponent } from './components/brand-creation-form/brand-creation-form.component';
+import { ImageViewerComponent } from './components/image-viewer/image-viewer.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { BrandCreationFormComponent } from './components/brand-creation-form/bra
     ReviewCreationFormComponent,
     SubjectCreationFormComponent,
     BrandCreationFormComponent,
+    ImageViewerComponent,
   ],
   imports: [
     BrowserModule,

@@ -4,7 +4,7 @@ import {SubjectPreview} from "../../models/subject.model";
 @Component({
   selector: 'app-subject-search-result-item',
   templateUrl: './subject-search-result-item.component.html',
-  styles: []
+  styleUrls: ['subject-search-result-item.component.sass']
 })
 export class SubjectSearchResultItemComponent {
 

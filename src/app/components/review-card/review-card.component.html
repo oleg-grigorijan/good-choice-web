@@ -15,6 +15,11 @@
         <li *ngFor="let point of review.disadvantages">{{point}}</li>
       </ul>
     </div>
+    <div *ngIf="review.images.length" class="d-flex">
+      <div *ngFor="let image of review.images" class="review-card-image rounded bg-light border me-2">
+        <img class="rounded" src="{{image.location}}" alt="Review image">
+      </div>
+    </div>
     <div *ngFor="let body of review.bodies" class="mb-2">
       <p class="mb-0 card-text">{{body.content}}</p>
       <p class="mb-0 text-muted">{{body.createdTimestamp | date}}</p>

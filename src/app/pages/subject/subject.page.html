@@ -2,13 +2,34 @@
   <div class="row">
     <div class="col-lg-4 col-md-6 col-12">
       <h3>{{subject?.name}}</h3>
-      <div class="list-group mb-2">
+      <div class="list-group mb-3">
         <div *ngIf="!ownReview" class="list-group-item list-group-item-primary list-group-item-action"
              data-bs-toggle="modal"
              data-bs-target="#review-creation-modal">
           Leave a review
         </div>
         <ng-container *ngIf="subject">
+          <div *ngIf="subject.images.length" class="list-group-item p-0">
+            <div id="subject-images-carousel" class="carousel slide" data-bs-ride="carousel" style="height: 30vh; cursor: pointer">
+              <div class="carousel-inner">
+                <div *ngFor="let image of subject.images; let first = first"
+                     class="carousel-item active"
+                     [class.active]="first"
+                     data-bs-toggle="modal"
+                     data-bs-target="#image-viewer-modal">
+                  <img src="{{image.location}}" class="h-100 w-100 rounded" style="object-fit: cover" alt="...">
+                </div>
+              </div>
+              <button class="carousel-control-prev" type="button" data-bs-target="#subject-images-carousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#subject-images-carousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+              </button>
+            </div>
+          </div>
           <div class="list-group-item">
             <div *ngIf="subject.summary.averageMark">
               <span class="me-1">
@@ -37,6 +58,9 @@
         <app-review-card [review]="ownReview" (voteClick)="onVoteClick(ownReview, $event)"></app-review-card>
       </ng-container>
       <h3>Reviews</h3>
+      <div *ngIf="!reviews.length" class="card card-body text-muted mb-3">
+        No reviews
+      </div>
       <app-review-card
         *ngFor="let review of reviews"
         [review]="review"
@@ -56,6 +80,15 @@
       <div class="modal-body">
         <app-review-creation-form [subjectId]="subjectId" (creation)="loadOwnReview()"></app-review-creation-form>
       </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="subject" class="modal fade" id="image-viewer-modal" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content bg-transparent border-0">
+      <button type="button" class="btn-close btn-close-white ms-auto mb-1" data-bs-dismiss="modal" aria-label="Close"></button>
+      <app-image-viewer [images]="subject.images"></app-image-viewer>
     </div>
   </div>
 </div>

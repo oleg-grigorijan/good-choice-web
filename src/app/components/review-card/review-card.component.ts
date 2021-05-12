@@ -4,7 +4,7 @@ import {Review, ReviewVoteType} from "../../models/review.model";
 @Component({
   selector: 'app-review-card',
   templateUrl: './review-card.component.html',
-  styles: []
+  styleUrls: ['./review-card.component.sass']
 })
 export class ReviewCardComponent {
 
