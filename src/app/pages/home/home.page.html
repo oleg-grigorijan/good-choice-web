@@ -24,7 +24,6 @@
     <app-subject-tag-search-result-item
       *ngFor="let tag of subjectTags"
       [tag]="tag"
-      [routerLink]="['/', 'subjects', 'tags', tag.id]"
       class="list-group-item list-group-item-action">
     </app-subject-tag-search-result-item>
     <a *ngIf="query && subjectService.canCreate()"

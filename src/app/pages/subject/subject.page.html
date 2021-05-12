@@ -3,11 +3,6 @@
     <div class="col-lg-4 col-md-6 col-12">
       <h3>{{subject?.name}}</h3>
       <div class="list-group mb-3">
-        <div *ngIf="reviewService.canCreate() && !ownReview" class="list-group-item list-group-item-primary list-group-item-action"
-             data-bs-toggle="modal"
-             data-bs-target="#review-creation-modal">
-          Leave a review
-        </div>
         <ng-container *ngIf="subject">
           <div *ngIf="subject.images.length" class="list-group-item p-0">
             <div id="subject-images-carousel" class="carousel slide" data-bs-ride="carousel" style="height: 30vh; cursor: pointer">
@@ -30,7 +25,7 @@
               </button>
             </div>
           </div>
-          <div class="list-group-item">
+          <div *ngIf="subject.subjectTags.length || subject.summary.averageMark" class="list-group-item">
             <div *ngIf="subject.summary.averageMark">
               <span class="me-1">
                 <span *ngFor="let i of [].constructor(round(subject.summary.averageMark))" class="material-icons fs-6">star</span>
@@ -53,9 +48,17 @@
       </div>
     </div>
     <div class="col-lg-8 col-md-6 col-12">
-      <ng-container *ngIf="ownReview">
+      <ng-container *ngIf="reviewService.canCreate()">
         <h3>My Review</h3>
-        <app-review-card [review]="ownReview" (voteClick)="onVoteClick(ownReview, $event)"></app-review-card>
+        <div *ngIf="!ownReview" class="card mb-3">
+          <div class="card-body">
+            <div class="card-title">What do you think about this subject?</div>
+            <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#review-creation-modal">
+              Leave a review
+            </button>
+          </div>
+        </div>
+        <app-review-card *ngIf="ownReview" [review]="ownReview" (voteClick)="onVoteClick(ownReview, $event)"></app-review-card>
       </ng-container>
       <h3>Reviews</h3>
       <div *ngIf="!reviews.length" class="card card-body text-muted mb-3">
