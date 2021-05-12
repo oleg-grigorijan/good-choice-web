@@ -4,7 +4,7 @@ import {HttpClient} from "@angular/common/http";
 import {ReviewerRegistrationRequest} from "../models/user.model";
 import {environment} from "../../environments/environment";
 import {AuthService} from "./auth.service";
-import {flatMap, mergeMap, tap} from "rxjs/operators";
+import {mergeMap} from "rxjs/operators";
 import {Auth} from "../models/auth.model";
 
 @Injectable({

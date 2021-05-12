@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Brand} from "../../models/brand.model";
 import {BrandService} from "../../services/brand.service";
@@ -6,8 +6,7 @@ import {BrandService} from "../../services/brand.service";
 @Component({
   selector: 'app-brand-creation-form',
   templateUrl: './brand-creation-form.component.html',
-  styles: [
-  ]
+  styles: []
 })
 export class BrandCreationFormComponent implements OnInit {
 

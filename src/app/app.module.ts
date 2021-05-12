@@ -22,7 +22,7 @@ import {SubjectCreationFormComponent} from './components/subject-creation-form/s
 import {BrandCreationFormComponent} from './components/brand-creation-form/brand-creation-form.component';
 import {ImageViewerComponent} from './components/image-viewer/image-viewer.component';
 import {AuthInterceptor} from "./services/auth.interceptor";
-import { SignUpFormComponent } from './components/sign-up-form/sign-up-form.component';
+import {SignUpFormComponent} from './components/sign-up-form/sign-up-form.component';
 
 @NgModule({
   declarations: [

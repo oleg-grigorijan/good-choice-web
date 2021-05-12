@@ -4,8 +4,7 @@ import {ImageDescriptor} from "../../models/image-descriptor.model";
 @Component({
   selector: 'app-image-viewer',
   templateUrl: './image-viewer.component.html',
-  styles: [
-  ]
+  styles: []
 })
 export class ImageViewerComponent implements OnInit {
 
