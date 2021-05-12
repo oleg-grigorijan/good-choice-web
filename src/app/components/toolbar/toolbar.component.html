@@ -6,8 +6,8 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarNavDropdown">
     <ul class="navbar-nav">
-      <ng-container *ngIf="authService.isAuthenticated">
-        <li *ngIf="authService.isAuthenticated" class="nav-item dropdown">
+      <ng-container *ngIf="authService.auth">
+        <li *ngIf="authService.auth" class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Account
           </a>
@@ -16,11 +16,11 @@
           </ul>
         </li>
       </ng-container>
-      <ng-container *ngIf="!authService.isAuthenticated">
+      <ng-container *ngIf="!authService.auth">
         <li class="nav-item">
           <a routerLink="/welcome" class="nav-link" type="button">Registration</a>
         </li>
-        <li *ngIf="!authService.isAuthenticated" class="nav-item">
+        <li *ngIf="!authService.auth" class="nav-item">
           <a routerLink="/welcome" class="nav-link" type="button">Sing In</a>
         </li>
       </ng-container>

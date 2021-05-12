@@ -16,12 +16,12 @@ import {ReviewCardComponent} from './components/review-card/review-card.componen
 import {SignInFormComponent} from './components/sign-in-form/sign-in-form.component';
 import {WelcomeComponent} from './pages/welcome/welcome.component';
 import {ReactiveFormsModule} from "@angular/forms";
-import {AuthService} from "./services/auth.service";
-import { ToolbarComponent } from './components/toolbar/toolbar.component';
-import { ReviewCreationFormComponent } from './components/review-creation-form/review-creation-form.component';
-import { SubjectCreationFormComponent } from './components/subject-creation-form/subject-creation-form.component';
-import { BrandCreationFormComponent } from './components/brand-creation-form/brand-creation-form.component';
-import { ImageViewerComponent } from './components/image-viewer/image-viewer.component';
+import {ToolbarComponent} from './components/toolbar/toolbar.component';
+import {ReviewCreationFormComponent} from './components/review-creation-form/review-creation-form.component';
+import {SubjectCreationFormComponent} from './components/subject-creation-form/subject-creation-form.component';
+import {BrandCreationFormComponent} from './components/brand-creation-form/brand-creation-form.component';
+import {ImageViewerComponent} from './components/image-viewer/image-viewer.component';
+import {AuthInterceptor} from "./services/auth.interceptor";
 
 @NgModule({
   declarations: [
@@ -50,7 +50,7 @@ import { ImageViewerComponent } from './components/image-viewer/image-viewer.com
     ReactiveFormsModule,
   ],
   providers: [
-    {provide: HTTP_INTERCEPTORS, useClass: AuthService, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
   ],
   bootstrap: [AppComponent]
 })

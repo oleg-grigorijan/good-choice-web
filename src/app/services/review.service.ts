@@ -5,13 +5,15 @@ import {Review, ReviewCreationRequest, ReviewVotes, ReviewVoteType} from "../mod
 import {Page} from "../models/page.model";
 import {environment} from "../../environments/environment";
 import {Reference} from "../models/reference.model";
+import {AuthService} from "./auth.service";
+import {UserRole} from "../models/user.model";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ReviewService {
 
-  constructor(private readonly http: HttpClient) {
+  constructor(private readonly authService: AuthService, private readonly http: HttpClient) {
   }
 
   getOwnBySubject(subjectId: string): Observable<Review> {
@@ -31,11 +33,19 @@ export class ReviewService {
     return this.http.post<Reference>(`${environment.apiUrl}/reviews`, request);
   }
 
+  canCreate(): boolean {
+    return this.authService.auth?.role === UserRole.REVIEWER;
+  }
+
   vote(reviewId: string, type: ReviewVoteType): Observable<ReviewVotes> {
     return this.http.put<ReviewVotes>(`${environment.apiUrl}/reviews/${reviewId}/votes/own`, {type})
   }
 
   removeVote(reviewId: string): Observable<ReviewVotes> {
     return this.http.delete<ReviewVotes>(`${environment.apiUrl}/reviews/${reviewId}/votes/own`);
+  }
+
+  canVote(): boolean {
+    return this.authService.auth !== null;
   }
 }

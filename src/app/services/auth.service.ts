@@ -1,64 +1,44 @@
 import {Injectable} from '@angular/core';
 import {Observable} from "rxjs";
-import {HttpClient, HttpErrorResponse, HttpEvent, HttpHandler, HttpHeaders, HttpInterceptor, HttpParams, HttpRequest} from "@angular/common/http";
+import {HttpClient, HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from "@angular/common/http";
 import {environment} from "../../environments/environment";
-import {tap} from "rxjs/operators";
+import {map, tap} from "rxjs/operators";
 import {Router} from "@angular/router";
+import {Auth, Credentials} from "../models/auth.model";
+import {UserRole} from "../models/user.model";
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService implements HttpInterceptor {
+export class AuthService {
 
-  private readonly localStorageKey = 'basic-token';
+  private readonly localStorageKey = 'auth';
 
-  private token: string | null;
+  auth: Auth | null;
 
   constructor(
     private readonly http: HttpClient,
     private readonly router: Router,
   ) {
-    this.token = localStorage.getItem(this.localStorageKey);
+    let authJson = localStorage.getItem(this.localStorageKey);
+    this.auth = authJson
+      ? JSON.parse(authJson)
+      : null;
   }
 
-  get isAuthenticated(): boolean {
-    return this.token !== null;
-  }
-
-  signIn(login: string, password: string): Observable<void> {
-    return this.http.post<void>(`${environment.apiUrl}/login`,
-      new HttpParams()
-        .append('username', login)
-        .append('password', password)
-        .toString(), {
-        headers: new HttpHeaders()
-          .append('Content-Type', 'application/x-www-form-urlencoded')
-      }).pipe(tap(() => {
-      this.token = window.btoa(`${login}:${password}`);
-      localStorage.setItem(this.localStorageKey, this.token);
+  signIn(credentials: Credentials): Observable<Auth> {
+    return this.http.post<{ role: UserRole }>(`${environment.apiUrl}/login`, credentials).pipe(map(it => ({
+      email: credentials.email,
+      password: credentials.password,
+      role: it.role,
+    })), tap(auth => {
+      this.auth = auth;
+      localStorage.setItem(this.localStorageKey, JSON.stringify(auth));
     }));
   }
 
   signOut(): void {
-    this.token = null;
+    this.auth = null;
     localStorage.removeItem(this.localStorageKey);
-  }
-
-  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    if (this.isAuthenticated) {
-      const headerValue = 'Basic ' + this.token;
-      request = request.clone({setHeaders: {Authorization: headerValue}});
-    }
-
-    return next.handle(request).pipe(tap(
-      () => {
-      },
-      error => {
-        if (error instanceof HttpErrorResponse && error.status === 401) {
-          this.signOut();
-          this.router.navigate(['/', 'welcome']);
-        }
-      }
-    ));
   }
 }

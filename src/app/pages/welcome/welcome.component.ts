@@ -18,7 +18,7 @@ export class WelcomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.authenticationService.isAuthenticated) {
+    if (this.authenticationService.auth) {
       this.router.navigate(['/']);
     }
   }

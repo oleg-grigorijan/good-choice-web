@@ -20,9 +20,9 @@ export class HomePage implements OnInit {
   brands: BrandPreview[] = [];
 
   constructor(
-    private readonly subjectService: SubjectService,
-    private readonly subjectTagService: SubjectTagService,
-    private readonly brandService: BrandService,
+    readonly subjectService: SubjectService,
+    readonly subjectTagService: SubjectTagService,
+    readonly brandService: BrandService,
   ) {
   }
 

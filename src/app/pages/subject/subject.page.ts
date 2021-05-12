@@ -21,7 +21,7 @@ export class SubjectPage implements OnInit {
 
   constructor(
     private readonly subjectService: SubjectService,
-    private readonly reviewService: ReviewService,
+    readonly reviewService: ReviewService,
     private readonly route: ActivatedRoute,
   ) {
   }

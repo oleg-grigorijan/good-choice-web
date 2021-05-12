@@ -3,7 +3,7 @@
     <div class="col-lg-4 col-md-6 col-12">
       <h3>{{subject?.name}}</h3>
       <div class="list-group mb-3">
-        <div *ngIf="!ownReview" class="list-group-item list-group-item-primary list-group-item-action"
+        <div *ngIf="reviewService.canCreate() && !ownReview" class="list-group-item list-group-item-primary list-group-item-action"
              data-bs-toggle="modal"
              data-bs-target="#review-creation-modal">
           Leave a review

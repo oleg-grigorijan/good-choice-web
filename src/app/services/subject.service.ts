@@ -5,13 +5,15 @@ import {Subj, SubjectCreationRequest, SubjectPreview} from "../models/subject.mo
 import {Page} from "../models/page.model";
 import {environment} from "../../environments/environment";
 import {Reference} from "../models/reference.model";
+import {AuthService} from "./auth.service";
+import {UserRole} from "../models/user.model";
 
 @Injectable({
   providedIn: 'root'
 })
 export class SubjectService {
 
-  constructor(private readonly http: HttpClient) {
+  constructor(private readonly authService: AuthService, private readonly http: HttpClient) {
   }
 
   queryPreviewsPage(query: string, offset: number, limit: number): Observable<Page<SubjectPreview>> {
@@ -39,5 +41,9 @@ export class SubjectService {
 
   create(request: SubjectCreationRequest): Observable<Reference> {
     return this.http.post<Reference>(`${environment.apiUrl}/subjects`, request);
+  }
+
+  canCreate(): boolean {
+    return this.authService.auth?.role === UserRole.ADMINISTRATOR;
   }
 }

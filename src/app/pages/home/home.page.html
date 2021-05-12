@@ -3,7 +3,7 @@
   <input #searchInput (input)="search(searchInput.value)" type="text" class="form-control mb-3" placeholder="Search">
   <div class="list-group">
     <a href="#"
-       *ngIf="query"
+       *ngIf="query && subjectService.canCreate()"
        class="list-group-item list-group-item-primary list-group-item-action"
        data-bs-toggle="modal"
        data-bs-target="#brand-creation-modal">
@@ -15,7 +15,9 @@
       [routerLink]="['/', 'brands', brand.id]"
       class="list-group-item list-group-item-action">
     </app-brand-search-result-item>
-    <a (click)="onCreateTagClick()" href="#" *ngIf="query"
+    <a (click)="onCreateTagClick()"
+       *ngIf="query && subjectTagService.canCreate()"
+       href="#"
        class="list-group-item list-group-item-primary list-group-item-action">
       Create tag <span class="fw-bold">{{query}}</span>
     </a>
@@ -25,7 +27,8 @@
       [routerLink]="['/', 'subjects', 'tags', tag.id]"
       class="list-group-item list-group-item-action">
     </app-subject-tag-search-result-item>
-    <a href="#" *ngIf="query"
+    <a *ngIf="query && subjectService.canCreate()"
+       href="#"
        class="list-group-item list-group-item-primary list-group-item-action"
        data-bs-toggle="modal"
        data-bs-target="#subject-creation-modal">

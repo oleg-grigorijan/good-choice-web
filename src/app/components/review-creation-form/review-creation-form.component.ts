@@ -55,7 +55,8 @@ export class ReviewCreationFormComponent implements OnInit {
     }
 
     this.isLoading = true;
-    this.reviewService.create({
+    this.reviewService.
+    create({
       subject: {id: this.subjectId},
       mark: Number(this.form.controls.mark.value),
       title: this.form.controls.title.value,

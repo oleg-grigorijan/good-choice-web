@@ -7,8 +7,7 @@ import {throwError} from "rxjs";
 @Component({
   selector: 'app-sign-in-form',
   templateUrl: './sign-in-form.component.html',
-  styles: [
-  ]
+  styles: []
 })
 export class SignInFormComponent implements OnInit {
 
@@ -41,7 +40,10 @@ export class SignInFormComponent implements OnInit {
     }
 
     this.isLoading = true;
-    this.authService.signIn(this.form.controls.email.value, this.form.controls.password.value).subscribe(() => {
+    this.authService.signIn({
+      email: this.form.controls.email.value,
+      password: this.form.controls.password.value,
+    }).subscribe(() => {
       this.isLoading = false;
       this.signIn.emit();
     }, error => {

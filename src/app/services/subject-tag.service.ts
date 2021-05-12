@@ -6,13 +6,15 @@ import {Observable} from "rxjs";
 import {environment} from "../../environments/environment";
 import {Reference} from "../models/reference.model";
 import {map} from "rxjs/operators";
+import {AuthService} from "./auth.service";
+import {UserRole} from "../models/user.model";
 
 @Injectable({
   providedIn: 'root'
 })
 export class SubjectTagService {
 
-  constructor(private readonly http: HttpClient) {
+  constructor(private readonly authService: AuthService, private readonly http: HttpClient) {
   }
 
   queryPage(query: string, offset: number, limit: number): Observable<Page<SubjectTag>> {
@@ -27,5 +29,9 @@ export class SubjectTagService {
   create(request: SubjectTagCreationRequest): Observable<SubjectTag> {
     return this.http.post<Reference>(`${environment.apiUrl}/subjects/tags`, request)
       .pipe(map(ref => ({id: ref.id, name: request.name, subjectsCount: 0})));
+  }
+
+  canCreate(): boolean {
+    return this.authService.auth?.role === UserRole.ADMINISTRATOR;
   }
 }
